@@ -63,37 +63,26 @@ y.push_back(std::stod(yin[i]));
 }
 
 
-
-// void plotgraph()
-// {
-//     Gnuplot gp;
-
-// 	// Gnuplot vectors (i.e. arrows) require four columns: (x,y,dx,dy)
-// 	std::vector<boost::tuple<double, double, double, double> > pts_A;
-
-// }
-
-
-
 std::tuple<double, double, double> fitLine(std::pair<std::vector<double>, std::vector<double>> xy, std::pair<std::vector<double>, std::vector<double>> xy_err)
 {
     int N = xy.first.size();
     double p, q, chi;
-    double sum_xiyi = 0;
+    
     double sum_xi = 0;
     double sum_yi = 0; 
     double sum_xisq = 0;
+    double sum_xiyi = 0;
     
   for(int i = 0; i < N; i++) 
     {
-        sum_xi = sum_xi + xy.first[i];
-        sum_yi = sum_yi + xy.second[i];
-        sum_xisq = sum_xisq + xy.first[i]*xy.first[i];
-        sum_xiyi = sum_xiyi + xy.first[i]*xy.second[i];
+        sum_xi += xy.first[i];
+        sum_yi += xy.second[i];
+        sum_xisq += xy.first[i]*xy.first[i];
+        sum_xiyi += xy.first[i]*xy.second[i];
     }
 
-    p = (  (N*sum_xiyi)-(sum_xi*sum_yi)  ) / (  (N*sum_xisq)-(sum_xi*sum_xi)  );
-    q =  (  (sum_xisq*sum_yi)-(sum_xiyi*sum_xi)  ) / (  (N*sum_xisq)-(sum_xi*sum_xi)  );
+    p = ((N*sum_xiyi)-(sum_xi*sum_yi)) / ((N*sum_xisq)-(sum_xi*sum_xi));
+    q = ((sum_xisq*sum_yi)-(sum_xiyi*sum_xi)) / ((N*sum_xisq)-(sum_xi*sum_xi));
 
     // debuggin steps - left for reference
     // std::cout << "Sum of xi: " << sum_xi << std::endl;
@@ -105,6 +94,17 @@ std::tuple<double, double, double> fitLine(std::pair<std::vector<double>, std::v
     std::cout << "p = " << p << std::endl;
     std::cout << "q = " << q << std::endl;
 
+    //used to work, now broken
+    // expect - p = 0.126266, q = 0.405255
+    // chi squared = 311.694    (sum of chi squared)    
+    // N = 25   (number of data points)         
+    // nParameters = 2 (number of parameters in fit)    
+    // NDF = N - nParameters = 23 (degrees of freedom)
+    // Goodness of fit = chi squared / NDF = 311.694/23 = 13.5519
+   
+
+
+
     //calculating chi squared
     double chiSum;
     for(int i = 0; i < N; i++) 
@@ -114,15 +114,20 @@ std::tuple<double, double, double> fitLine(std::pair<std::vector<double>, std::v
         double numerator = diff * diff;
         double denominator = (p * p * xy_err.first[i] * xy_err.first[i]) + (xy_err.second[i] * xy_err.second[i]);   //error on y value - (from data in file and error from fit)
         chiSum += numerator / denominator;          //sum of chi squared for each point
+
+    // for(int i = 0; i < N; i++) 
+    // {
+    //    chiSum = chiSum + ( (xy.second[i] - ((xy.first[i]*p) + q))*(xy.second[i] - ((xy.first[i]*p) + q)) ) / ( sqrt( (p*p*xy_err.first[i]*xy_err.first[i]) + (xy_err.second[i]*xy_err.second[i])  ));
+    // }
+
     }
 
-    
-    int NDF = N - nParameters;
     int nParameters = 2;
+    int NDF = N - nParameters;
     double GoodofFit = chiSum/(NDF); //goodness of fit - chi squared divided by degrees of freedom
 
     std::cout << "Sum of chisq: " << chiSum << std::endl;
-    std::cout << "As we have "<< N <<" data points, and ">> nParameters >>" parameters to our fit. Thus, we have " << N-nParameters << " Degrees of freedom." << std::endl;
+    std::cout << "As we have "<< N <<" data points, and " << nParameters << " parameters to our fit. Thus, we have " << N-nParameters << " Degrees of freedom." << std::endl;
     std::cout << "ChiSquared/NDF = " << chiSum << "/" << NDF << " = " << GoodofFit << std::endl;
 
     std::ofstream myfile; //output file stream
@@ -137,9 +142,6 @@ std::tuple<double, double, double> fitLine(std::pair<std::vector<double>, std::v
 
 }
 
-   
-
-
 int main()
 {
 
@@ -150,7 +152,7 @@ std::string filePath_err = "/workspaces/SUPA_CPP_Labs/Exercises2023/Ex1_2/error2
 std::pair<std::vector<double>, std::vector<double>> xy = readFile(filePath); //defining the input paired x,y
 std::pair<std::vector<double>, std::vector<double>> xy_err = readFile(filePath_err); //defining the input paired x,y
 
-int i, j;
+int i, j; //for user input switches
 bool go = true;
 while (go){
 
