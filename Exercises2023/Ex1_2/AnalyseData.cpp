@@ -4,7 +4,6 @@
     Date: 2023-11-15
     Purpose: SUPA C++ Exercise to read in data from a file, and perform some basic analysis on it.
 */
-
 #include <cmath>
 #include <iostream>
 #include <fstream>
@@ -15,6 +14,7 @@
 #include <algorithm>
 
 #include "CustomFunctions.h"
+
 //syntax to run
 //g++ CustomSource.cpp Main.cpp -o MyProgram
 //to copy and paste beacause I'm lazy - g++ CustomFunctions.cpp AnalyseData.cpp -o MyProgram
@@ -60,18 +60,24 @@ y.push_back(std::stod(yin[i]));
 
 int main()
 {
+//defining the input file paths
 std::string filePath =  "/workspaces/SUPA_CPP_Labs/Exercises2023/Ex1_2/input2D_float.txt";
 std::string filePath_err = "/workspaces/SUPA_CPP_Labs/Exercises2023/Ex1_2/error2D_float.txt";
 
-
+//reading in the data 
+//these will be paired vectors of x,y coordinates for use in all functions
 std::pair<std::vector<double>, std::vector<double>> xy = readFile(filePath); //defining the input paired x,y
 std::pair<std::vector<double>, std::vector<double>> xy_err = readFile(filePath_err); //defining the input paired x,y
 
+
+//user input section
 int i, j; //for user input switches
 bool go = true;
-while (go){
 
-    int n_lines = xy.first.size();
+while (go){
+   
+   int n_lines = xy.first.size();
+    
     std::printf("\nYou have read in a file with %i lines of data, corresponding to %i x,y coordinates. \n", n_lines, n_lines);
     std::printf("Choose from the following options:\n");
     std::printf("1. Prints a chosen number of lines of the data file. \n");
@@ -125,7 +131,6 @@ while (go){
         }
     }  
 }
-
 
 
 return 0;
