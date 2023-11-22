@@ -56,21 +56,9 @@ void vectorCalc(std::pair<std::vector<double>, std::vector<double>> xy)
 
 }
 
-//function to plot data from a file and fit a line
-    double ls ()
-    {
-        int N = xy.first.size();
-        double p;
-        double sum_xiyi, sum_xi, sum_yi, sum_xisq, 
-    
-        for (int i = 0; i<N;i++)
-        {
-            sum_xi = sum_xi + (xy.first[i]);
 
-        }
-
-         std::cout << "Sum of xi: " << sum_xi << std::endl;
-    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// function to caluclate fit parameters and goodness of fit
 
 
 
