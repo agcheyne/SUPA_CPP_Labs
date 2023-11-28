@@ -1,9 +1,13 @@
 /*
     File: AnalyseData.cpp
-    Author: Andrew Cheyne - based on execise and Github fork by Jonathon Jamieson
+    Author: Andrew Cheyne - https://github.com/agcheyne/
+    Title: Submission for Labs 1 & 2
+    Course: SUPA Graduate C++ Course (SUPACOO)
+    Original fork from: Jonathon Jamieson - https://github.com/jjamieson12/SUPA_CPP_Labs/
     Date: 2023-11-15
-    Purpose: SUPA C++ Exercise to read in data from a file, and perform some basic analysis on it.
+    Purpose: Exercise 1 & 2. To read in a file of x,y data and perform various functions on it in order to demonstrate topics taught in the course.
 */
+
 #include <cmath>
 #include <iostream>
 #include <fstream>
@@ -15,9 +19,9 @@
 
 #include "CustomFunctions.h"
 
-//syntax to run
-//g++ CustomSource.cpp Main.cpp -o MyProgram
-//to copy and paste beacause I'm lazy - g++ CustomFunctions.cpp AnalyseData.cpp -o MyProgram
+//to run from terminal:
+//cd /workspaces/SUPA_CPP_Labs/Exercises2023/Ex1_2                                      //change directory to where the files are
+//g++ CustomFunctions.cpp AnalyseData.cpp -o AnalyseData && ./AnalyseData               //compile and run
 
 std::pair<std::vector<double>, std::vector<double>> readFile(const std::string& filePath)
 {
@@ -57,6 +61,10 @@ y.push_back(std::stod(yin[i]));
  return std::make_pair(x, y);
 
 }
+
+
+
+
 
 int main()
 {

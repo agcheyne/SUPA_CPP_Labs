@@ -135,7 +135,7 @@ std::tuple<double, double, double> fitLine(std::pair<std::vector<double>, std::v
 
     //outputting chi squared and goodness of fit to terminal
     //std::cout << "Sum of chisq: " << chiSum << std::endl; 
-    std::cout << "As we have "<< N <<" data points, and " << nParameters << " parameters to our fit. Thus, we have " << N-nParameters << " Degrees of freedom." << std::endl;
+    std::cout << "As there are "<< N <<" data points, and " << nParameters << " parameters to our fit. We have " << N-nParameters << " Degrees of freedom." << std::endl;
     std::cout << "ChiSquared/NDF = " << chiSum << "/" << NDF << " = " << GoodofFit << std::endl;
 
     //outputting fit parameters and chi squared to file
@@ -158,6 +158,7 @@ std::tuple<double, double, double> fitLine(std::pair<std::vector<double>, std::v
 
 
 //recursive function to print results
+//Since I didnt do the x^y with recursion I wanted to demonstrate it in some way
 int RecurivePrint(int i, std::vector<double> result, std::ofstream& myfile)
 {
     if (i == 0){
@@ -198,11 +199,11 @@ void XsupYCalc(std::pair<std::vector<double>, std::vector<double>> xy)
     std::transform(xy.first.begin(), xy.first.end(), xy.second.begin(), std::back_inserter(result), powerFunction);
     
     //Display the results normal way (not recursive) - used to verify results of recursive print method
-    for (int i = 0; i < result.size(); i++) {
-        //std::cout << "For point " << i << ": " << xy.first[i] << "^" << xy.second[i] << " = " << result[i] << std::endl; //output with numeric values
-        std::cout << "For point " << i+1 << ": " << "x^y" << " = " << result[i] << std::endl; //output with formula and results
-        myfile2 <<  i+1 << " "<< result[i] << std::endl; //output results to file
-    }
+    // for (int i = 0; i < result.size(); i++) {
+    //     //std::cout << "For point " << i << ": " << xy.first[i] << "^" << xy.second[i] << " = " << result[i] << std::endl; //output with numeric values
+    //     std::cout << "For point " << i+1 << ": " << "x^y" << " = " << result[i] << std::endl; //output with formula and results
+    //     myfile2 <<  i+1 << " "<< result[i] << std::endl; //output results to file
+    // }
 
     //printing results using recursive function since i didnt do the x^y with recursion I wanted to demonstrate it here
     RecurivePrint(result.size(), result, myfile);
