@@ -35,7 +35,7 @@ void lineprint(std::pair<std::vector<double>, std::vector<double>> xy)
     int userN;
     std::cin >> userN;  //user input for number of lines to print
     std::ofstream myfile; //output file stream
-    myfile.open ("output.txt"); //open file to write to
+    myfile.open ("printedLines.txt"); //open file to write to
 
     //printing lines
     for (int i=1; i<=userN; i++){   //looping over number of lines to print - user input starts at 1, so i=1
