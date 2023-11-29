@@ -61,10 +61,20 @@ double FiniteFunction::callFunction(double x) {return this->invxsquared(x);}; //
 Integration by hand (output needed to normalise function when plotting)
 ###################
 */ 
+
 double FiniteFunction::integrate(int Ndiv){ //private
-  //ToDo write an integrator
-  return -99;  
+  //create a trapezium rule integrator
+  double step = (m_RMax - m_RMin)/(double)Ndiv; //Step size for integration defined by range and number of divisions
+  double x = m_RMin;                            //Start at the lower bound as defined by the user
+  double sum = 0;                               //Running total of the integral
+  for (int i = 0; i < Ndiv; i++){               //Loop over the number of divisions - ends at upper bound.
+    sum += (this->callFunction(x) + this->callFunction(x+step))*step/2;   //Add the area of the trapezium to the running total
+    x += step;
+  }
+  return sum;                                //Return the total area under the curve of our function
 }
+
+
 double FiniteFunction::integral(int Ndiv) { //public
   if (Ndiv <= 0){
     std::cout << "Invalid number of divisions for integral, setting Ndiv to 1000" <<std::endl;
@@ -162,6 +172,9 @@ std::vector< std::pair<double,double> > FiniteFunction::makeHist(std::vector<dou
   for (double point : points){
     //Get bin index (starting from 0) the point falls into using point value, range, and Nbins
     int bindex = static_cast<int>(floor((point-m_RMin)/((m_RMax-m_RMin)/(double)Nbins)));
+     if (bindex<0 || bindex>Nbins){
+      continue;
+      }
     bins[bindex]++; //weight of 1 for each data point
     norm++; //Total number of data points
   }
