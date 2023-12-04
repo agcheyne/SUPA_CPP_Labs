@@ -37,6 +37,10 @@ double CLFunction::getX0() {
 
 // Cauchy-Lorentz distribution function definition
 double CLFunction::clDistribution(double x) {
+    if (m_gamma == 0.0) {
+        // If the standard deviation is zero, the distribution is a delta function and not defined by this class. Throw an exception.
+        throw std::invalid_argument("For Cauchy-Lorentz function, gamma must be non-zero");
+    }
     return 1.0 / (M_PI * m_gamma * (1.0 + ((x - m_x0) / m_gamma) * ((x - m_x0) / m_gamma)));
 }
     
@@ -54,4 +58,3 @@ void CLFunction::printInfo(){ //Override the base class printInfo function
     std::cout << "x0: " << m_x0 << std::endl;
 
   }
-// maybe need if n_args

@@ -2,14 +2,14 @@
 #include "NegCrystalBallFunction.h"
 
 // Empty constructor
-NegCrystalBallFunction::NegCrystalBallFunction() : NormalFunction() {
+NegCrystalBallFunction::NegCrystalBallFunction() : NormalFunction() {   // Call the normal function constructor since we use mean and stddev from that class as well
     m_n = 1.0; // n is the shape parameter, it must be greater than 0
     m_alpha = 0.0; //  alpha is the transition parameter between the gaussian and power law tails 
     this->checkPath("NegCrystalBallFunction");
 
 }
 
-// Initialized constructor for normal distribution
+// Initialized constructor for negative crystal ball distribution
 NegCrystalBallFunction::NegCrystalBallFunction(double range_min, double range_max, std::string outfile, double stddev, double mean, double n, double alpha)
     : NormalFunction(range_min, range_max, outfile, stddev, mean) {
     m_n = n;
@@ -20,7 +20,7 @@ NegCrystalBallFunction::NegCrystalBallFunction(double range_min, double range_ma
 
 void NegCrystalBallFunction::setN(double n) {
     if (n < 1.0) {
-        throw std::invalid_argument("n must be greater than 1");
+        throw std::invalid_argument("For negative Crystal Ball function, n must be greater than 1");
     }
     m_n = n; // n is the power shape parameter, it must be greater than 1
 
@@ -28,13 +28,13 @@ void NegCrystalBallFunction::setN(double n) {
 
 void NegCrystalBallFunction::setAlpha(double alpha) {
     if (alpha < 0.0) {
-        throw std::invalid_argument("Alpha must be greater than 0");
+        throw std::invalid_argument("For negative Crystal Ball function, alpha must be greater than 0");
     }
     m_alpha = alpha; // alpha is the transition parameter between the gaussian and power law tails. It must be greater than 0 for the power law tail to be negative.
 
 }
 
-// Getters
+//Getters
 double NegCrystalBallFunction::getAlpha() {
     return m_alpha;
 }
@@ -47,11 +47,11 @@ double NegCrystalBallFunction::getN() {
 double NegCrystalBallFunction::negCBDistribution(double x) {
 
      if (m_stddev == 0.0) {
-        // Handle the error, for example, throw an exception
-        throw std::invalid_argument("Standard deviation must be non-zero");
+        // If the standard deviation is zero, the distribution is a delta function and not defined by this class. Throw an exception.
+        throw std::invalid_argument("For negative Crystal Ball function, Standard deviation must be non-zero");
     }
 
-    x = (x - m_mean) / m_stddev; // standardize the input
+    x = (x - m_mean) / m_stddev; // standardize the input, also helps for the if statement below.
 
     double A = pow(m_n / fabs(m_alpha), m_n) * exp(-0.5 * pow(m_alpha, 2));
     double B = m_n / fabs(m_alpha) - fabs(m_alpha);

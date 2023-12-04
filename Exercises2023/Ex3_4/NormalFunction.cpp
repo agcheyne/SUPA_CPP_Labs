@@ -37,7 +37,7 @@ double NormalFunction::getMean() {
 double NormalFunction::normalDistribution(double x) {
     if (m_stddev == 0.0) {
         // Handle the error, for example, throw an exception
-        throw std::invalid_argument("Standard deviation must be non-zero");
+        throw std::invalid_argument("For normal distribution, standard deviation must be non-zero");
     }
     return 1.0 / (m_stddev * sqrt(2 * M_PI)) * exp(-0.5 * pow((x - m_mean) / m_stddev, 2));
 }
