@@ -8,6 +8,8 @@
 
 using std::filesystem::path;
 
+
+
 //Empty constructor
 FiniteFunction::FiniteFunction(){
   m_RMin = -5.0;
@@ -68,7 +70,7 @@ double FiniteFunction::integrate(int Ndiv){ //private
   double x = m_RMin;                            //Start at the lower bound as defined by the user
   double sum = 0;                               //Running total of the integral
   for (int i = 0; i < Ndiv; i++){               //Loop over the number of divisions - ends at upper bound.
-    sum += (this->callFunction(x) + this->callFunction(x+step))*step/2;   //Add the area of the trapezium to the running total
+    sum += ((this->callFunction(x) + this->callFunction(x+step))/2)*step;   //Add the area of the trapezium to the running total
     x += step;
   }
   return sum;                                //Return the total area under the curve of our function
@@ -103,10 +105,12 @@ void FiniteFunction::checkPath(std::string outfile){
 
 //Print (overridable)
 void FiniteFunction::printInfo(){
+  std::cout << "----------------------------------------" << std::endl;
+  std::cout << "function: " << m_FunctionName << std::endl;
   std::cout << "rangeMin: " << m_RMin << std::endl;
   std::cout << "rangeMax: " << m_RMax << std::endl;
   std::cout << "integral: " << m_Integral << ", calculated using " << m_IntDiv << " divisions" << std::endl;
-  std::cout << "function: " << m_FunctionName << std::endl;
+  
 }
 
 /*
@@ -149,6 +153,7 @@ std::vector< std::pair<double,double> > FiniteFunction::scanFunction(int Nscan){
   std::vector< std::pair<double,double> > function_scan;
   double step = (m_RMax - m_RMin)/(double)Nscan;
   double x = m_RMin;
+
   //We use the integral to normalise the function points
   if (m_Integral == NULL) {
     std::cout << "Integral not set, doing it now" << std::endl;
@@ -191,6 +196,9 @@ std::vector< std::pair<double,double> > FiniteFunction::makeHist(std::vector<dou
 //If an m_plot... flag is set, the we must have filled the related data vector
 //SUPACPP note: They syntax of the plotting code is not part of the course
 void FiniteFunction::generatePlot(Gnuplot &gp){
+
+      // Debugging output
+    std::cout << "Generating plot..." << std::endl;
 
   if (m_plotfunction==true && m_plotdatapoints==true && m_plotsamplepoints==true){
     gp << "set terminal pngcairo\n";
@@ -244,4 +252,7 @@ void FiniteFunction::generatePlot(Gnuplot &gp){
     gp << "plot '-' with points ps 2 lc rgb 'blue' title 'sampled data'\n";
     gp.send1d(m_samples);
   }
+
+      // Debugging output
+    std::cout << "Plot generated." << std::endl;
 }

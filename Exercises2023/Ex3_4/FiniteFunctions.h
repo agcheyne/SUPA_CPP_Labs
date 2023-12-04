@@ -2,6 +2,7 @@
 #include <vector>
 #include "gnuplot-iostream.h"
 
+
 #pragma once //Replacement for IFNDEF
 
 class FiniteFunction{
@@ -23,7 +24,7 @@ public:
   void plotData(std::vector<double> &points, int NBins, bool isdata=true); //NB! use isdata flag to pick between data and sampled distributions
   virtual void printInfo(); //Dump parameter info about the current function (Overridable)
   virtual double callFunction(double x); //Call the function with value x (Overridable)
-
+  
   //Protected members can be accessed by child classes but not users
 protected:
   double m_RMin;

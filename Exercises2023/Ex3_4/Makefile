@@ -1,7 +1,7 @@
 CC=g++ #Name of compiler
 FLAGS=-std=c++20 -w #Compiler flags (the s makes it silent)
 TARGET=functionTest #Executable name
-OBJECTS=functionTest.o FiniteFunctions.o
+OBJECTS=functionTest.o FiniteFunctions.o NormalFunction.o CLFunction.o NegCrystalBallFunction.o #Object files to link
 LIBS=-I ../../GNUplot/ -lboost_iostreams
 
 #First target in Makefile is default
@@ -15,6 +15,16 @@ functionTest.o : functionTest.cpp FiniteFunctions.h
 
 FiniteFunctions.o : FiniteFunctions.cxx FiniteFunctions.h
 	${CC} ${FLAGS} ${LIBS} -c FiniteFunctions.cxx
+
+normalFunction.o : NormalFunction.cpp NormalFunction.h
+	${CC} ${FLAGS} ${LIBS} -c NormalFunction.cpp
+
+CLFunction.o : CLFunction.cpp CLFunction.h
+	${CC} ${FLAGS} ${LIBS} -c CLFunction.cpp
+
+NegCrystalBall.o : NegCrystalBallFunction.cpp NegCrystalBallFunction.h
+	${CC} ${FLAGS} ${LIBS} -c NegCrystalBallFunction.cpp
+
 
 clean: #No targets just run shell command to rm object files and emacs backups
 	@rm -f *.o *~
