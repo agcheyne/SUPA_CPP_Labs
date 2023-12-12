@@ -1,3 +1,8 @@
 #pragma once
+#include <iostream>
+#include <random>
+#include <cmath>
+#include <algorithm>
+#include "FiniteFunctions.h"
 
-double runMetropolisAlgorith(FiniteFunction* function);
+double runMetropolisAlgorithm(FiniteFunction* function);

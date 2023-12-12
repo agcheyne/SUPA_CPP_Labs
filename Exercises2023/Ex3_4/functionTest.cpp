@@ -62,8 +62,13 @@ int main()
     test1.setRangeMax(7);   // change the max range to 7 as data was outside the plot range    
     test1.printInfo();      // print the info about the function to the terminal
     test1.plotFunction(); 
-    test1.plotData(points, 40, true);  // plot the data with 20 bins. The true denotes that it is data 
-    
+    test1.plotData(points, 40, true);  // plot the data with 20 bins. The true denotes that it is data
+    std::vector<double> samples1;
+    for (int i = 0; i < 40; i++) {
+        samples1.push_back(runMetropolisAlgorithm(&test1));
+    } 
+    test1.plotData(samples1, 40, false);  // plot the data with 20 bins. The false denotes that it is sampled data
+
     
     NormalFunction test2;
     test2.setRangeMax(7); 
@@ -72,6 +77,13 @@ int main()
     test2.printInfo();
     test2.plotFunction();
     test2.plotData(points, 40, true);   
+    
+    std::vector<double> samples2;
+    for (int i = 0; i < 40; i++) {
+        samples2.push_back(runMetropolisAlgorithm(&test2));
+    }
+    test2.plotData(samples2, 40, false);  // plot the data with 20 bins. The false denotes that it is sampled data
+
 
     
     CLFunction test3;
@@ -81,6 +93,11 @@ int main()
     test3.printInfo();
     test3.plotFunction();
     test3.plotData(points, 40, true);   
+    std::vector<double> samples3;
+    for (int i = 0; i < 40; i++) {
+        samples3.push_back(runMetropolisAlgorithm(&test3));
+    }
+    test3.plotData(samples3, 40, false);  // plot the data with 20 bins. The false denotes that it is sampled data
     
      
     NegCrystalBallFunction test4;
@@ -92,6 +109,11 @@ int main()
     test4.printInfo();
     test4.plotFunction();
     test4.plotData(points, 40, true);
+    std::vector<double> samples4;
+    for (int i = 0; i < 40; i++) {
+        samples4.push_back(runMetropolisAlgorithm(&test4));
+    }
+    test4.plotData(samples4, 40, false);  // plot the data with 20 bins. The false denotes that it is sampled data
 
     
 
