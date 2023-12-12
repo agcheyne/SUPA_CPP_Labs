@@ -25,6 +25,9 @@ CLFunction.o : CLFunction.cpp CLFunction.h
 NegCrystalBall.o : NegCrystalBallFunction.cpp NegCrystalBallFunction.h
 	${CC} ${FLAGS} ${LIBS} -c NegCrystalBallFunction.cpp
 
+sampling.o : sampling.cpp sampling.h
+	${CC} ${FLAGS} ${LIBS} -c sampling.cpp
+
 
 clean: #No targets just run shell command to rm object files and emacs backups
 	@rm -f *.o *~

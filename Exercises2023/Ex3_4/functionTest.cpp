@@ -17,6 +17,7 @@
 #include "NormalFunction.h"
 #include "CLFunction.h"
 #include "NegCrystalBallFunction.h"
+#include "sampling.h"
 
 //script to test the FiniteFunction class
 //beginning with testing the default class constructor
@@ -49,6 +50,7 @@ int main()
     inputFile.close();
     std::cout << "************************************" << std::endl;
     std::cout << "Read in " << points.size() << " points from " << file << std::endl;
+    std::cout << std::endl;
     std::cout << "************************************" << std::endl;
 
 
@@ -70,8 +72,8 @@ int main()
     test2.printInfo();
     test2.plotFunction();
     test2.plotData(points, 40, true);   
-    
 
+    
     CLFunction test3;
     test3.setRangeMax(7); 
     test3.setGamma(1.2);    // gamma is the scale parameter - like the standard deviation of a gaussian
