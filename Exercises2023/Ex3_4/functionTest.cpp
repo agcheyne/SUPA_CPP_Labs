@@ -64,10 +64,8 @@ int main()
     test1.plotFunction(); 
     test1.plotData(points, 40, true);  // plot the data with 20 bins. The true denotes that it is data
     std::vector<double> samples1;
-    for (int i = 0; i < 40; i++) {
-        samples1.push_back(runMetropolisAlgorithm(&test1));
-    } 
-    test1.plotData(samples1, 40, false);  // plot the data with 20 bins. The false denotes that it is sampled data
+    samples1 = runMetropolisAlgorithm(&test1, 100, 1.5, 100);
+    test1.plotData(samples1, 20, false);  // plot the data with 20 bins. The false denotes that it is sampled data
 
     
     NormalFunction test2;
@@ -79,10 +77,8 @@ int main()
     test2.plotData(points, 40, true);   
     
     std::vector<double> samples2;
-    for (int i = 0; i < 40; i++) {
-        samples2.push_back(runMetropolisAlgorithm(&test2));
-    }
-    test2.plotData(samples2, 40, false);  // plot the data with 20 bins. The false denotes that it is sampled data
+    samples2 = runMetropolisAlgorithm(&test2, 10000, 2, 100); // 10000 points, initial sigma of 2, max 100 iterations
+    test2.plotData(samples2, 100, false);  // plot the samples with 20 bins. The false denotes that it is sampled data
 
 
     
@@ -94,10 +90,8 @@ int main()
     test3.plotFunction();
     test3.plotData(points, 40, true);   
     std::vector<double> samples3;
-    for (int i = 0; i < 40; i++) {
-        samples3.push_back(runMetropolisAlgorithm(&test3));
-    }
-    test3.plotData(samples3, 40, false);  // plot the data with 20 bins. The false denotes that it is sampled data
+    samples3 = runMetropolisAlgorithm(&test3, 10000, 1.5, 100);
+    test3.plotData(samples3, 65, false);  // plot the data with 20 bins. The false denotes that it is sampled data
     
      
     NegCrystalBallFunction test4;
@@ -110,10 +104,9 @@ int main()
     test4.plotFunction();
     test4.plotData(points, 40, true);
     std::vector<double> samples4;
-    for (int i = 0; i < 40; i++) {
-        samples4.push_back(runMetropolisAlgorithm(&test4));
-    }
-    test4.plotData(samples4, 40, false);  // plot the data with 20 bins. The false denotes that it is sampled data
+    samples4 = runMetropolisAlgorithm(&test4, 10000, 1.5, 100);
+    test4.plotData(samples4, 65, false);  // plot the data with 20 bins. The false denotes that it is sampled data
+
 
     
 

@@ -5,4 +5,4 @@
 #include <algorithm>
 #include "FiniteFunctions.h"
 
-double runMetropolisAlgorithm(FiniteFunction* function);
+std::vector<double> runMetropolisAlgorithm(FiniteFunction* function, int numPoints, double initialSigma, int maxIterations);
